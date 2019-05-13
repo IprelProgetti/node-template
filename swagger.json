@@ -1,0 +1,109 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "IPREL PROGETTI DEMO APIs",
+      "description": "Documentazione degli endpoint per la webapp di demo.",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "https://claudia-assistant.appspot.com",
+    "host": "localhost:3000",
+    "basePath": "/api/v1",
+    "tags": [
+      {
+        "name": "Demo",
+        "description": "APIs per la gestione del flusso dati nella demo proposta"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/data": {
+        "post": {
+          "tags": [
+            "Demo"
+          ],
+          "description": "Riceve i dati emessi su GCP in tempo reale",
+          "parameters": [
+            {
+              "name": "message",
+              "in": "body",
+              "description": "Messaggio ricevuto da Google Cloud Platform",
+              "schema": {
+                "$ref": "#/definitions/Message"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Il dato real time è stato ricevuto",
+              "schema": {
+                "$ref": "#/definitions/GraphData"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Message": {
+        "type": "object",
+        "description": "structure of a GCP PubSub message",
+        "properties": {
+          "message": {
+            "type": "object",
+            "properties": {
+                "attributes": {
+                    "type": "object",
+                    "properties":{
+                        "key": {
+                            "type": "string",
+                            "description": "GCP message key"
+                        }
+                    }
+                },
+                "data": {
+                    "type": "string",
+                    "description": "base64-encoded raw data received on GCP"
+                },
+                "messageId": {
+                    "type": "string",
+                    "description": "unique identifier for the message received on GCP"
+                }
+            }
+          },
+          "subscription": {
+            "type": "string",
+            "description": "GCP subscription data source"
+          }
+        }
+      },
+      "GraphData": {
+        "required": [
+          "messageId",
+          "subscription"
+        ],
+        "properties": {
+          "messageId": {
+            "type": "string"
+          },
+          "subscription": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
