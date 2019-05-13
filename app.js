@@ -43,3 +43,10 @@ var port = process.env.port || 8080;
 app.listen(port);
 
 module.exports = app;
+
+
+// https://www.robinwieruch.de/node-express-server-rest-api/
+// https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b855b
+// https://raw.githubusercontent.com/GenFirst/swagger-to-existing-nodejs-project/master/backend/swagger.json
+// https://stackoverflow.com/questions/11625519/how-to-access-the-request-body-when-posting-using-node-js-and-express
+// https://yeoman.io/generators/
